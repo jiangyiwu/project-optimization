@@ -1,0 +1,11 @@
+$color: #fff;
+body {
+  background: $color;
+  display: flex;
+  backface-visibility: hidden;
+  img {
+    width: 100px;
+    height: 200px;
+    margin: 0 auto;
+  }
+}
