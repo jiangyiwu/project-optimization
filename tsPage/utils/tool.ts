@@ -56,7 +56,7 @@ export const debounce = (fn: any, time: number = 300) => {
   }
 }
 // 节流
-export const throttle = (fn: any, delay = 300) => {
+export const throttle = (fn: Function, delay = 300) => {
   let startTime = 0;
   return (...args: string[]) => {
     const now = Date.now();
@@ -73,4 +73,16 @@ export const humpName = (str: string): string => {
     if (index === 0) return pre += next;
     return pre += next.charAt(0).toUpperCase() + next.substr(1);
   }, '');
+}
+
+export const countDown = (cb: Function, time: number = 10) => {
+  let timer: any = null;
+  cb(time);
+  if (time <= 0) {
+    clearTimeout(timer);
+    return;
+  }
+  timer = setTimeout(() => {
+    countDown(cb, --time);
+  }, 300);
 }

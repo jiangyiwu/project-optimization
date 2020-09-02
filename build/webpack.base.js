@@ -38,7 +38,8 @@ module.exports = {
     // 将html文件在入口引入是为了在开启热更新后，可以及时更新html文件，否则在html文件修改后，不会自动更新
     index: [resolve(__dirname, '../index/index.js'), resolve(__dirname, '../index/template.html')],
     lazyLoad: resolve(__dirname, '../lazyload/index.js'),
-    tsPage: resolve(__dirname, '../tsPage/index.ts')
+    tsPage: resolve(__dirname, '../tsPage/index.ts'),
+    mvvm: resolve(__dirname, '../mvvm/index.js')
   },
   output: {
     path: resolve(__dirname, '../dist'),
@@ -147,6 +148,11 @@ module.exports = {
       filename: 'tsPage.html',
       template: resolve(__dirname, '../tsPage/index.html'),
       chunks: ['tsPage']
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'mvvm.html',
+      template: resolve(__dirname, '../mvvm/index.html'),
+      chunks: ['mvvm']
     })
   ],
   /**

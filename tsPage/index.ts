@@ -1,5 +1,7 @@
 import * as tools from './utils/tool';
 import FirstC from './components/first-c';
+import './utils/list';
+import './utils/doubleList';
 
 const ua = tools.getBrowserUA();
 const person = tools.person({ firstName: 'j', age: 18 });
