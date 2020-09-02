@@ -18,13 +18,17 @@ class DoubleList {
 
   getData(position: number) {
     if (position >= this.size || position < 0) return  null;
+
     let tempNode = this.head;
+
     for (let i = 0; i < position; i++) {
       tempNode = tempNode.next;
     }
+
     return tempNode.data;
   }
 
+  // 不传position默认追加在链表尾部
   insert(data: any, position?: number) {
     const newNode = new DoubleListNode(data);
     let tempNode = this.head;
@@ -44,6 +48,7 @@ class DoubleList {
       }
     } else {
       if (position < 0) return;
+
       if (position === 0) {
         if (!this.head) {
           this.head = newNode;
@@ -60,10 +65,12 @@ class DoubleList {
           newNode.prev = tempNode;
           this.tail = newNode;
         }
+
         while (index++ < position) {
           previous = tempNode;
           tempNode = tempNode.next;
         }
+
         newNode.next = tempNode;
         previous.next = newNode;
       }
@@ -74,9 +81,11 @@ class DoubleList {
 
   remove(position: number) {
     if (position < 0) return null;
+
     let tempNode = this.head;
     let index = 0;
     let previous = null;
+
     if (position === 0) {
       this.head = tempNode.next;
       if (this.size === 0) {
@@ -96,6 +105,7 @@ class DoubleList {
       previous.next = tempNode.next;
       tempNode.next.prev = previous;
     }
+
     this.size -= 1;
   }
 
@@ -103,10 +113,20 @@ class DoubleList {
     console.info(this.head, '----head---');
     document.write('elements in <strong>double-list</strong> as follows: <br>'); 
     let tempNode = this.head;
+    let tailNode = this.tail;
+
     while(tempNode != null){  
-      document.write(tempNode.data + ' ');
+      document.write(tempNode.data + ' --> ');
       tempNode = tempNode.next;
     }
+
+    document.write('<br>');
+
+    while(tailNode != null){  
+      document.write(tailNode.data + ' <-- ');
+      tailNode = tailNode.prev;
+    }
+
     document.write('<br>');
   }
 }

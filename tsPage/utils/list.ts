@@ -12,14 +12,18 @@ class List {
   constructor() {
   }
 
+  // 不传position默认追加在链表尾部
   insert(newData: any, position?: number) {
     const newNode = new ListNode(newData);
+
     if (this.head === null) {
       this.head = newNode;
       this.size += 1;
       return;
     }
+
     let tempNode = this.head;
+
     if (typeof position === 'undefined') {
       while (tempNode.next !== null) {
         tempNode  = tempNode.next;
@@ -28,14 +32,18 @@ class List {
       this.size += 1;
       return;
     }
+
     if (position < 0) return;
+
     if (position === 0) {
       newNode.next = tempNode;
       this.head = newNode;
       this.size += 1;
       return;
     }
+
     if (position > this.size) position = this.size;
+
     for (let i = 0; i < position - 1; i++) {
       tempNode = tempNode.next;
     }
@@ -46,7 +54,9 @@ class List {
 
   getData(position: number) {
     if (position >= this.size || position < 0) return  null;
+
     let tempNode = this.head;
+
     for (let i = 0; i < position; i++) {
       tempNode = tempNode.next;
     }
@@ -55,15 +65,19 @@ class List {
 
   removeData(position: number) {
     if (position >= this.size || position < 0) return null;
+
     this.size -= 1;
     let tempNode = this.head;
+
     if (position === 0) {
       this.head = tempNode.next;
       return this.head;
     }
+
     for (let i = 0; i < position - 1; i++) {
       tempNode = tempNode.next;
     }
+
     tempNode.next = tempNode.next.next;
     return tempNode.next;
   }
@@ -71,10 +85,12 @@ class List {
   print() {
     document.write('elements in <strong>list</strong> as follows: <br>');  
     let tempNode = this.head;
+
     while(tempNode != null){  
       document.write(tempNode.data + ' ');
       tempNode = tempNode.next;
     }
+
     document.write('<br>');
   }
 }
