@@ -5,6 +5,13 @@ interface Person {
   [propName: string]: string | number | undefined
 }
 
+interface Object {
+  id: any;
+  value: any;
+  children?: any;
+  pid: string;
+}
+
 interface Map {
   [propName: string]: string
 }
@@ -85,4 +92,53 @@ export const countDown = (cb: Function, time: number = 10) => {
   timer = setTimeout(() => {
     countDown(cb, --time);
   }, 300);
+}
+
+export const customNew = function(fn: any, ...args: any) {
+  const obj = Object.create(fn.prototype);
+  fn.apply(obj, args);
+  return obj;
+}
+
+// 扁平数组转树状数组
+export const transformTree = function(arr: Array<any>, options: any = {}) {
+  const map: any = {};
+  const tree = [];
+  const { 
+    id = 'id',
+    pid = 'pid',
+    children = 'children',
+    rootId = 'id0'
+  } = options;
+  for (let i = 0; i < arr.length; i++) {
+    const item = arr[i];
+    const cid = item[id];
+    if (map[cid]) {
+      item[children] = map[cid];
+    } else {
+      item[children] = map[cid] = [];
+    }
+
+    if (item[pid] !== rootId) {
+      map[item[pid]].push(item);
+    } else {
+      tree.push(item);
+    }
+  }
+
+  return tree;
+}
+
+export const transformArr = function(tree: Array<any> = []) {
+  let queen = tree;
+  const out = [];
+  while (queen.length) {
+    const first = queen.shift();
+    if (first.children) {
+      queen = queen.concat(first.children);
+      delete first.children;
+    }
+    out.push(first);
+  }
+  return out;
 }
